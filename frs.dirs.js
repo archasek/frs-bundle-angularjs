@@ -21,6 +21,9 @@ module.exports = function(dirs, mode) {
 
       //change dist JS subdirectory from "js" to "scripts"
       // dirs.dist.js = dirs.dist.main + 'scripts/';
+
+      dirs.dist.views = dirs.dist.main + 'views/';
+
       break;
   }
 }

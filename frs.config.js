@@ -55,12 +55,42 @@ module.exports = function(config, dirs) {
               'max-depth': 3
             }
           ],
-          'zero-unit': 0
+          'zero-unit': 0,
+          'indentation': [
+            1,
+            {
+              'size': 4
+            }
+          ]
         }
       }))
       .pipe(sassLint.format())
       .pipe(sassLint.failOnError());
   };
+
+
+  //inject ngAnnotate
+  var ngAnnotate = require('gulp-ng-annotate');
+
+  config.js.inject.concat = function(stream) {
+    return stream.pipe(ngAnnotate({
+      add: true,
+      single_quotes: true
+    }));
+  }
+
+
+  //wrap all into iife + use strict
+  var iife = require('gulp-iife');
+
+  // check this.taskParams.isApp to add iife only for apps js, not vendors
+  config.js.inject.sourceMapsWrite = function(stream) {
+     return this.taskParams.isApp ? stream.pipe(iife({
+       prependSemicolon: false
+     })) : stream;
+  }
+
+
 
 
 
@@ -142,6 +172,8 @@ module.exports = function(config, dirs) {
   //main JS: add prioritized files
   // compMain.priority.vendor = ['carousel.js'];
   // compMain.priority.app = ['core.js', 'app/init.js'];
+
+  compMain.priority.app = ['app.module.js', 'app.config.js', 'app.*.js', '**/root*.js', '**/*.controller.js', '**/*.component.js'];
 
   //add a html5shiv comp (add a dependency in in your bower.json file first)
   // comps.html5shiv = {
@@ -227,6 +259,27 @@ module.exports = function(config, dirs) {
   });
 */
 
+config.customDirs.items.push({
+  name: 'index view',
+  src: dirs.src.main + 'js/shared/root/**/*.html',
+  dest: dirs.dist.main
+});
+
+
+// disc views without subdirectories
+var flatten = require('gulp-flatten');
+
+config.customDirs.items.push({
+  name: 'all views',
+  src: [dirs.src.main + '**/*.html', '!' + dirs.src.main + '**/index.html'],
+  dest: dirs.dist.views,
+  inject: {
+    dest: function(stream) {
+      return stream.pipe(flatten());
+    }
+  }
+});
+
 
 
   /********************
@@ -234,9 +287,10 @@ module.exports = function(config, dirs) {
   *********************/
 
   //change ESLint options - add allowed globals
-  // config.lint.options.globals = {
-  //   angular: false
-  // }
+  config.lint.options.globals = {
+    'angular': false,
+    '_': false
+  }
 
   //change ESLint options - customize rules
   // config.lint.options.rules = {
@@ -245,7 +299,7 @@ module.exports = function(config, dirs) {
   // }
 
   config.lint.options.rules = {
-    'indent': ['error', 2]
+    'indent': ['error', 4]
   }
 
 
@@ -276,4 +330,6 @@ module.exports = function(config, dirs) {
   //disable images dir cleaning
   // config.clean.inject.images = false;
 
+  //disable views dir cleaning
+  config.clean.inject.views = false;
 }
