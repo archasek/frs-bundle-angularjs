@@ -1,10 +1,10 @@
-# Default front-end bundle with ITCSS
+# Default front-end bundle with AngularJS and ITCSS
 for the FRS (https://github.com/implico/frontend-starter)
 
 ## Installation:
 
-1. Clone the repo.
-2. `npm install`
-3. `bower install`
-4. `frs start`
-
+1. Install [FRS](https://github.com/implico/frontend-starter) globally.
+2. Clone this repo.
+3. `npm install`
+4. `bower install`
+5. `frs start`
