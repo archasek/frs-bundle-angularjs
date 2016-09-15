@@ -259,15 +259,20 @@ module.exports = function(config, dirs) {
   });
 */
 
-config.customDirs.items.push({
-  name: 'index view',
-  src: dirs.src.main + 'js/shared/root/**/*.html',
-  dest: dirs.dist.main
-});
-
 
 // disc views without subdirectories
 var flatten = require('gulp-flatten');
+
+config.customDirs.items.push({
+  name: 'index view',
+  src: dirs.src.main + '**/index.html',
+  dest: dirs.dist.main,
+  inject: {
+    dest: function(stream) {
+      return stream.pipe(flatten());
+    }
+  }
+});
 
 config.customDirs.items.push({
   name: 'all views',

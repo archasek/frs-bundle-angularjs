@@ -9,21 +9,21 @@
 
     function config($stateProvider, appConfig) {
         $stateProvider
-            .state('index.home', {
-                url: '/',
+            .state('index.another', {
+                url: '/another',
                 data: {
-                    title: 'Home title'
+                    title: 'Another title'
                 },
                 resolve: {
                     heading: function () {
-                        return 'home heading';
+                        return 'Another page heading';
                     }
                 },
                 views: {
                     'main@': {
-                        templateUrl: appConfig.BASE_VIEWS_PATH + 'home.html'
+                        templateUrl: appConfig.BASE_VIEWS_PATH + 'another.html'
                     },
-                    'hero@index.home': {
+                    'hero@index.another': {
                         component: 'heroComponent'
                     }
                 }
