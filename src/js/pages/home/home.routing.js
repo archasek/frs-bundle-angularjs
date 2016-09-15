@@ -6,14 +6,17 @@
         .config(config);
 
     config.$inject = ['$stateProvider', 'appConfig'];
-    
-    function config ($stateProvider, appConfig) {
+
+    function config($stateProvider, appConfig) {
         $stateProvider
-            .state('root.home', {
+            .state('index.home', {
                 url: '/',
                 views: {
                     'main@': {
-                        template: '<div>elo</div>'
+                        templateUrl: appConfig.BASE_VIEWS_PATH + 'home.html'
+                    },
+                    'hero@index.home': {
+                        component: 'heroComponent'
                     }
                 }
             });

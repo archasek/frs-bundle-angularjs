@@ -7,10 +7,9 @@
 
     HeaderController.$inject = [];
 
-    function HeaderController() {
-    	console.log('2222')
+    function HeaderController () {
         var vm = this;
 
-        console.log('yest!')
+        console.log('header controller')
     }
 })();

@@ -5,11 +5,11 @@
         .module('app.main')
         .filter('sanitize', sanitize);
 
-        sanitize.$inject = ['$sce'];
+    sanitize.$inject = ['$sce'];
 
-        function sanitize ($sce) {
-            return function (htmlCode) {
-                return $sce.trustAsHtml(htmlCode);
-            };
-        }
+    function sanitize ($sce) {
+        return function (htmlCode) {
+            return $sce.trustAsHtml(htmlCode);
+        };
+    }
 })();

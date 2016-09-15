@@ -5,24 +5,21 @@
         .module('app.main')
         .config(config);
 
-    config.$inject = ['$urlRouterProvider', '$stateProvider', 'appConfig'];
+    config.$inject = ['$urlRouterProvider', '$stateProvider'];
     
-    function config ($urlRouterProvider, $stateProvider, appConfig) {
+    function config ($urlRouterProvider, $stateProvider) {
         $urlRouterProvider
             .otherwise('/');
 
         $stateProvider
-            .state('root', {
-                url: '',
+            .state('index', {
                 abstract: true,
                 views: {
                     'header': {
                         component: 'headerComponent'
                     },
                     'footer': {
-                        templateUrl: appConfig.BASE_VIEWS_PATH + 'footer.html',
-                        // controller: 'FooterController',
-                        // controllerAs: 'FC'
+                        component: 'footerComponent'
                     }
                 }
             });

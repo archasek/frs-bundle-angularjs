@@ -10,6 +10,6 @@
     function FooterController() {
         var vm = this;
 
-        console.log('yest2!')
+        console.log('footer controller')
     }
 })();

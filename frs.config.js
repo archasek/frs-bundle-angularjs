@@ -81,14 +81,14 @@ module.exports = function(config, dirs) {
 
 
   //wrap all into iife + use strict
-  var iife = require('gulp-iife');
+  // var iife = require('gulp-iife');
 
   // check this.taskParams.isApp to add iife only for apps js, not vendors
-  config.js.inject.sourceMapsWrite = function(stream) {
-     return this.taskParams.isApp ? stream.pipe(iife({
-       prependSemicolon: false
-     })) : stream;
-  }
+  // config.js.inject.sourceMapsWrite = function(stream) {
+  //    return this.taskParams.isApp ? stream.pipe(iife({
+  //      prependSemicolon: false
+  //    })) : stream;
+  // }
 
 
 
@@ -299,7 +299,8 @@ config.customDirs.items.push({
   // }
 
   config.lint.options.rules = {
-    'indent': ['error', 4]
+    'indent': [1, 4],
+    'no-unused-vars': 1
   }
 
 
