@@ -1,19 +1,13 @@
-(function () {
-    'use strict';
+angular
+    .module('app.main')
+    .controller('HeroController', HeroController);
 
-    angular
-        .module('app.main')
-        .controller('HeroController', HeroController);
+function HeroController () {
+    var vm = this;
 
-    HeroController.$inject = [];
+    console.log('vm', vm)
 
-    function HeroController () {
-        var vm = this;
+    vm.heading = vm.heading || 'default heading';
 
-        console.log('vm', vm)
-
-        vm.heading = vm.heading || 'default heading';
-
-        console.log('Hero controller')
-    }
-})();
+    console.log('Hero controller')
+}

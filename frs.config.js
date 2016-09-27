@@ -69,28 +69,32 @@ module.exports = function(config, dirs) {
   };
 
 
+  // wrap all into iife + use strict
+  var iife = require('gulp-iife');
+  // check this.taskParams.isApp to add iife only for apps js, not vendors
+  config.js.inject.concat = function (stream) {
+    return this.taskParams.isApp ? stream.pipe(iife({
+      prependSemicolon: false
+    })) : stream;
+  }
+
+
   //inject ngAnnotate
   var ngAnnotate = require('gulp-ng-annotate');
-
-  config.js.inject.concat = function(stream) {
+  config.js.inject.sourceMapsWrite = function (stream) {
     return stream.pipe(ngAnnotate({
       add: true,
       single_quotes: true
     }));
   }
+  
+  config.js.prod.inject = config.js.prod.inject || {};
+  config.js.prod.inject.minify = config.js.inject.sourceMapsWrite;
 
 
-  //wrap all into iife + use strict
-  // var iife = require('gulp-iife');
-
-  // check this.taskParams.isApp to add iife only for apps js, not vendors
-  // config.js.inject.sourceMapsWrite = function(stream) {
-  //    return this.taskParams.isApp ? stream.pipe(iife({
-  //      prependSemicolon: false
-  //    })) : stream;
-  // }
-
-
+  // disable minify for prod debugging:
+  // config.js.prod.inject.dest = config.js.inject.sourceMapsWrite;
+  // config.js.prod.inject.minify = false;
 
 
 

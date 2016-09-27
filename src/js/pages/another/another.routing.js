@@ -1,32 +1,26 @@
-(function () {
-    'use strict';
+angular
+    .module('app.main')
+    .config(config);
 
-    angular
-        .module('app.main')
-        .config(config);
-
-    config.$inject = ['$stateProvider', 'appConfig'];
-
-    function config($stateProvider, appConfig) {
-        $stateProvider
-            .state('index.another', {
-                url: '/another',
-                data: {
-                    title: 'Another title'
-                },
-                resolve: {
-                    heading: function () {
-                        return 'Another page heading';
-                    }
-                },
-                views: {
-                    'main@': {
-                        templateUrl: appConfig.BASE_VIEWS_PATH + 'another.html'
-                    },
-                    'hero@index.another': {
-                        component: 'heroComponent'
-                    }
+function config ($stateProvider, appConfig) {
+    $stateProvider
+        .state('index.another', {
+            url: '/another',
+            data: {
+                title: 'Another title'
+            },
+            resolve: {
+                heading: function () {
+                    return 'Another page heading';
                 }
-            });
-    }
-})();
+            },
+            views: {
+                'main@': {
+                    templateUrl: appConfig.BASE_VIEWS_PATH + 'another.html'
+                },
+                'hero@index.another': {
+                    component: 'heroComponent'
+                }
+            }
+        });
+}

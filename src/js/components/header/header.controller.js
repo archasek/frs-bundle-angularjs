@@ -1,15 +1,9 @@
-(function () {
-    'use strict';
+angular
+    .module('app.main')
+    .controller('HeaderController', HeaderController);
 
-    angular
-        .module('app.main')
-        .controller('HeaderController', HeaderController);
+function HeaderController () {
+    var vm = this;
 
-    HeaderController.$inject = [];
-
-    function HeaderController () {
-        var vm = this;
-
-        console.log('header controller')
-    }
-})();
+    console.log('header controller')
+}
