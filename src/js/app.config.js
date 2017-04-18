@@ -19,41 +19,5 @@ function httpConfig ($httpProvider) {
 
 // restangular config
 function restangularConfig (RestangularProvider) {
-    RestangularProvider.setBaseUrl();
-
-    RestangularProvider.setResponseExtractor(function (response, operation, what) {
-        if (operation === 'getList') {
-            if (what.indexOf("/") > -1) {
-                var parts = what.split("/");
-                what = parts[parts.length - 1];
-            }
-            return _.toArray(response[what]);
-        } else {
-            return response;
-        }
-    });
-
-    RestangularProvider.addRequestInterceptor(function (element, operation, what) {
-        var newRequest = {};
-
-        if (operation === 'post' || operation === 'put') {
-            what = what.split('');
-            what.pop();
-            what = what.join('');
-        }
-        if (operation === 'put') {
-            delete element._links;
-        }
-        if (what.indexOf("/") > -1) {
-            var parts = what.split("/");
-            what = parts[parts.length - 1];
-        }
-
-        newRequest[what] = element;
-        return newRequest;
-    });
-
-    RestangularProvider.setRestangularFields({
-        selfLink: '_links.self.href'
-    });
+    RestangularProvider.setBaseUrl('https://jsonplaceholder.typicode.com');
 }
